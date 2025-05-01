@@ -1,0 +1,49 @@
+# Python Bytecode and Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+build/
+dist/
+*.egg-info/
+
+# Virtual Environment
+venv/
+.env/
+env/
+*.venv/
+
+# Project-Specific Cache
+cached_results.csv
+
+# Editor and IDE Files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS Artifacts
+.DS_Store
+Thumbs.db
+
+# Logs and Temporary Files
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Sensitive Files
+.env
+*.secret
+*.key
+*.pem
+
+# Testing and Coverage
+.coverage
+coverage.xml
+*.cover
+.pytest_cache/
+
+# Other
+my_notes
