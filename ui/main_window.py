@@ -12,7 +12,7 @@ import traceback
 class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Stock Screener")
+        self.setWindowTitle("Big Tex's Stock Screener")
         self.setGeometry(100, 100, 1200, 800)
         self.layout = QVBoxLayout()
 
@@ -21,7 +21,7 @@ class MainWindow(QWidget):
 
         # Define available metrics
         self.available_metrics = {
-            "Market Cap": ">",
+            "Market Cap ($B)": ">",
             "PE Ratio": "<",
             "EBITDA": ">",
             "Revenue Growth 1Y": ">",
@@ -38,7 +38,10 @@ class MainWindow(QWidget):
             hbox = QHBoxLayout()
             checkbox = QCheckBox()
             input_field = QLineEdit()
-            input_field.setPlaceholderText(f"{sign} value")
+            if metric == "Market Cap":
+                input_field.setPlaceholderText(f"{sign} value (in billions, e.g. 2.5)")
+            else:
+                input_field.setPlaceholderText(f"{sign} value")
 
             self.metric_checkboxes[metric] = checkbox
             self.metric_inputs[metric] = input_field
@@ -76,7 +79,13 @@ class MainWindow(QWidget):
                         print(f"Warning: No value entered for {metric}, skipping")
                         continue
                     try:
-                        filters[metric] = float(val)
+                        num_val = float(val)
+
+                        # Convert billions to full dollars for Market Cap
+                        if metric == "Market Cap":
+                            num_val *= 1_000_000_000
+
+                        filters[metric] = num_val
                         print(f"Added filter: {metric} = {filters[metric]}")
                     except ValueError:
                         print(f"Invalid number for {metric}: {val}, skipping")
